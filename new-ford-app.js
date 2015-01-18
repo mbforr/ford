@@ -139,6 +139,18 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		}
 		return this.layerArr[divID];
 	};
+
+	this.updateAllNatQuery = function(query){
+		for(var index in this.layerArr){
+			this.updateNatQuery(index, query);
+		}
+	};
+
+	this.updateAllSubNatQuery = function(query){
+		for(var index in this.layerArr){
+			this.updateSubNatQuery(index, query);
+		}
+	};
 	
 	this.updateNatQuery = function(divID, query) {
 		var mapLayer = this.getLayer(divID);

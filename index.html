@@ -72,12 +72,8 @@
 			
 			$(document).ready(function(){
         $("#formButtom").on("click",function(){
-          mb.updateNatQuery("map1", queries1.natQuery);
-          mb.updateSubNatQuery("map1", queries1.subnatQuery);
-        });
-        $("#formButtom2").on("click",function(){
-          mb.updateNatQuery("map2", queries2.natQuery);
-          mb.updateSubNatQuery("map2", queries2.subNatquery);
+          map.updateAllNatQuery(queries1.natQuery);
+          map.updateAllSubNatQuery(queries1.subnatQuery);
         });
 				
         $('button.add').click(function(event){
