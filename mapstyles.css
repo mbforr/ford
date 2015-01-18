@@ -60,6 +60,7 @@ p {
 	height: 45%;
 	padding: 0;
 	margin: 0;
+	position: relative;
 }
 
 .wrapper,.wrapper2 {
@@ -94,27 +95,9 @@ p {
 	margin-left: 15px;
 }
 
-#Info1{
+.info{
 	position: absolute;
 	top: 300px;
-	left: 100px;
-	background-color: white;
-	z-index: 1000000;
-	width: 261px;
-}
-	  
-#Info2{
-	position: absolute;
-	top: 650px;
-	left: 100px;
-	background-color: white;
-	z-index: 1000000;
-	width: 261px;
-}
-	  
-#Info3{
-	position: absolute;
-	top: 1000px;
 	left: 100px;
 	background-color: white;
 	z-index: 1000000;

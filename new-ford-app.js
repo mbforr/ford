@@ -66,8 +66,9 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		var num_maps = $('body > .map').length;
 		divID += num_maps+1;
 		infodivID += num_maps+1;
-		$('body').append('<div class="map" id="'+divID+'"></div><br/>');
-		$('body').append('<div class="info" id="'+infodivID+'"></div>');
+		$('<div class="map" id="'+divID+'"></div><br/>')
+			.appendTo('body')
+			.append('<div class="info" id="'+infodivID+'"></div>');
 
 		var self = this;
 		var InitialCenter = new L.LatLng(40, 0);
