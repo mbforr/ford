@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grants</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="libs/cartodb/cartodb.css" />
+    <link rel="stylesheet" href="libs/c3/c3.min.css" />
+    <link rel="stylesheet" href="mapstyles.css" />
+  </head>
+  <body>
+    <!--<div class="wrapper">
+      <div class='form'>
+        <p>Start Date</p>
+        <select id="startDate" class="sqlSelector">
+          <option value='{"start":"2006"}'>+2006</option>
+          <option value='{"start":"2006","end":"2008"}'>2006-2007</option>
+          <option value='{"start":"2008","end":"2010"}'>2008-2009</option>
+          <option value='{"start":"2010","end":"2012"}'>2010-2011</option>
+          <option value='{"start":"2012","end":"2014"}'>2012-2013</option>
+          <option value='{"start":"2014"}'>+2014</option>
+        </select>
+        <p>Amount</p>
+        <select id="amount" class="sqlSelector">
+          <option value='{"low":0}'>All</option>
+          <option value='{"low":0,"high":10001}'>0-10,000</option>
+          <option value='{"low":10000,"high":50001}'>10,001-50,000</option>
+          <option value='{"low":50000,"high":100001}'>50,001-100,000</option>
+          <option value='{"low":100000,"high":250001}'>100,001-250,000</option>
+          <option value='{"low":250000,"high":500001}'>250,001-500,000</option>
+          <option value='{"low":500000}'>500,001 and above</option>
+        </select>
+        <p>Region</p>
+        <select id="region" class="sqlSelector">
+          <option value=''></option>
+        </select>
+        <p>Initiative</p>
+        <select id="initiative" class="sqlSelector">
+          
+        </select>
+        <div>
+          <button id="formButtom" class="updateButton">UPDATE MAP</button>
+        </div>
+      </div>
+    </div>-->
+    <!--<div class="wrapper2">
+      <div class='form2'>
+        <p>Start Date</p>
+        <select id="startDate" class="sqlSelector">
+          <option value='{"start":"2006"}'>+2006</option>
+          <option value='{"start":"2006","end":"2008"}'>2006-2007</option>
+          <option value='{"start":"2008","end":"2010"}'>2008-2009</option>
+          <option value='{"start":"2010","end":"2012"}'>2010-2011</option>
+          <option value='{"start":"2012","end":"2014"}'>2012-2013</option>
+          <option value='{"start":"2014"}'>+2014</option>
+        </select>
+        <p>Amount</p>
+        <select id="amount" class="sqlSelector">
+          <option value='{"low":0}'>All</option>
+          <option value='{"low":0,"high":10001}'>0-10,000</option>
+          <option value='{"low":10000,"high":50001}'>10,001-50,000</option>
+          <option value='{"low":50000,"high":100001}'>50,001-100,000</option>
+          <option value='{"low":100000,"high":250001}'>100,001-250,000</option>
+          <option value='{"low":250000,"high":500001}'>250,001-500,000</option>
+          <option value='{"low":500000}'>500,001 and above</option>
+        </select>
+        <p>Region</p>
+        <select id="region" class="sqlSelector">
+          <option value=''></option>
+        </select>
+        <p>Initiative</p>
+        <select id="initiative" class="sqlSelector">
+          
+        </select>
+        <div>
+          <button id="formButtom2" class="updateButton">UPDATE MAP</button>
+        </div>
+      </div>
+    </div>-->
+    <button class="add">Add</button>
+    <button class="remove">Remove</button>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="libs/cartodb/cartodb.js"></script>
+    <script src="libs/d3/d3.v3.min.js"></script>
+    <script src="libs/c3/c3.min.js"></script>
+	<script src="new-ford-app.js"></script>
+
+    <script>
+      function main() {
+
+      var splitParam = function(param, delimiter){
+        var ix = param.indexOf(delimiter);
+        var param1 = param.substring(0,ix);
+        var param2 = param.substring(ix + delimiter.length, param.length);
+        return {natQuery:param1, subnatQuery:param2};
+      }
+
+			var combinedQuery2="SELECT wb.the_geom_webmercator, wb.cartodb_id, sum(g.amount) as total_amount, l.locationname,  l.abbreviationcode FROM world_borders wb,  location l,  grants_locations gl,  grants g where wb.iso2=l.abbreviationcode and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' and g.amount>1000000 group by l.locationname, l.abbreviationcode, wb.the_geom_webmercator,wb.cartodb_id order by l.locationname UNION ALL SELECT sn.the_geom_webmercator, sn.cartodb_id, sum(g.amount) as total_amount, sn.name_0 as country,l.locationname FROM subnat sn, location l,  grants_locations gl,  grants g where sn.name_1=l.locationname and l.id=gl.locationid and gl.grantid=g.id and g.amount>1000000 and l.locationtype not in ('Continent', 'Country', 'Logical Group', 'Part Of Continent', 'Part Of Globe', 'Part Of Country', 'Union Territory') group by l.locationname, sn.the_geom_webmercator,sn.cartodb_id order by l.locationname";
+			var combinedQuery1="SELECT wb.the_geom_webmercator, wb.cartodb_id, sum(g.amount) as total_amount, l.locationname,  l.abbreviationcode FROM world_borders wb,  location l,  grants_locations gl,  grants g where wb.iso2=l.abbreviationcode and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' and g.amount>100000 group by l.locationname, l.abbreviationcode, wb.the_geom_webmercator,wb.cartodb_id order by l.locationname UNION ALL SELECT sn.the_geom_webmercator, sn.cartodb_id, sum(g.amount) as total_amount, sn.name_0 as country,l.locationname FROM subnat sn, location l,  grants_locations gl,  grants g where sn.name_1=l.locationname and l.id=gl.locationid and gl.grantid=g.id and g.amount>100000 and l.locationtype not in ('Continent', 'Country', 'Logical Group', 'Part Of Continent', 'Part Of Globe', 'Part Of Country', 'Union Territory') group by l.locationname, sn.the_geom_webmercator,sn.cartodb_id order by l.locationname";
+      var queries1 = splitParam(combinedQuery1, ' UNION ALL ');
+      var queries2 = splitParam(combinedQuery2, ' UNION ALL ');
+
+			var map = new cartoMap();
+			map.createMap("map1", "Info1");
+			map.createMap("map2", "Info2");
+			
+			$(document).ready(function(){
+        $("#formButtom").on("click",function(){
+          mb.updateNatQuery("map1", queries1.natQuery);
+          mb.updateSubNatQuery("map1", queries1.subnatQuery);
+        });
+        $("#formButtom2").on("click",function(){
+          mb.updateNatQuery("map2", queries2.natQuery);
+          mb.updateSubNatQuery("map2", queries2.subNatquery);
+        });
+				
+        $('button.add').click(function(event){
+          event.preventDefault();
+          map.createMap("map", "Info");
+        });
+		
+		    $('button.remove').click(function(event){
+          event.preventDefault();
+          map.removeMap("map3", "Info3");
+        });
+			});
+      }
+		
+      window.onload = main;
+    </script>
+  </body>
+</html>
