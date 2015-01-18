@@ -56,19 +56,7 @@ p {
 	font: KievitWebPro, Helvetica, Arial, sans-serif;
 }
 
-#map1 {
-	height: 45%;
-	padding: 0;
-	margin: 0;
-}
-	  
-#map2 {
-	height: 45%;
-	padding: 0;
-	margin: 0;
-}
-
-#map3 {
+.map {
 	height: 45%;
 	padding: 0;
 	margin: 0;
