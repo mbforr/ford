@@ -59,8 +59,8 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 	this.mapArr = [];
 	this.layerArr = [];
 	this.removeMap = function(divID, infodivID) {
-		$('#'+infodivID).remove();
-		$('#'+divID).remove();
+		var numMaps = $('body > .map').length;
+		$('.map').eq(numMaps-1).remove();
 	}
 	this.createMap = function(divID, infodivID) {
 		var num_maps = $('body > .map').length;
