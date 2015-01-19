@@ -58,6 +58,14 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 	
 	this.mapArr = [];
 	this.layerArr = [];
+
+	this.splitParam = function(param, delimiter){
+		var ix = param.indexOf(delimiter);
+		var param1 = param.substring(0,ix);
+		var param2 = param.substring(ix + delimiter.length, param.length);
+		return {natQuery:param1, subnatQuery:param2};
+	}
+
 	this.removeMap = function(divID, infodivID) {
 		var numMaps = $('body > .map').length;
 		$('.map').eq(numMaps-1).remove();

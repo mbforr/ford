@@ -54,19 +54,12 @@
     <script>
       function main() {
 
-      var splitParam = function(param, delimiter){
-        var ix = param.indexOf(delimiter);
-        var param1 = param.substring(0,ix);
-        var param2 = param.substring(ix + delimiter.length, param.length);
-        return {natQuery:param1, subnatQuery:param2};
-      }
-
 			var combinedQuery2="SELECT wb.the_geom_webmercator, wb.cartodb_id, sum(g.amount) as total_amount, l.locationname,  l.abbreviationcode FROM world_borders wb,  location l,  grants_locations gl,  grants g where wb.iso2=l.abbreviationcode and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' and g.amount>1000000 group by l.locationname, l.abbreviationcode, wb.the_geom_webmercator,wb.cartodb_id order by l.locationname UNION ALL SELECT sn.the_geom_webmercator, sn.cartodb_id, sum(g.amount) as total_amount, sn.name_0 as country,l.locationname FROM subnat sn, location l,  grants_locations gl,  grants g where sn.name_1=l.locationname and l.id=gl.locationid and gl.grantid=g.id and g.amount>1000000 and l.locationtype not in ('Continent', 'Country', 'Logical Group', 'Part Of Continent', 'Part Of Globe', 'Part Of Country', 'Union Territory') group by l.locationname, sn.the_geom_webmercator,sn.cartodb_id order by l.locationname";
 			var combinedQuery1="SELECT wb.the_geom_webmercator, wb.cartodb_id, sum(g.amount) as total_amount, l.locationname,  l.abbreviationcode FROM world_borders wb,  location l,  grants_locations gl,  grants g where wb.iso2=l.abbreviationcode and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' and g.amount>100000 group by l.locationname, l.abbreviationcode, wb.the_geom_webmercator,wb.cartodb_id order by l.locationname UNION ALL SELECT sn.the_geom_webmercator, sn.cartodb_id, sum(g.amount) as total_amount, sn.name_0 as country,l.locationname FROM subnat sn, location l,  grants_locations gl,  grants g where sn.name_1=l.locationname and l.id=gl.locationid and gl.grantid=g.id and g.amount>100000 and l.locationtype not in ('Continent', 'Country', 'Logical Group', 'Part Of Continent', 'Part Of Globe', 'Part Of Country', 'Union Territory') group by l.locationname, sn.the_geom_webmercator,sn.cartodb_id order by l.locationname";
-      var queries1 = splitParam(combinedQuery1, ' UNION ALL ');
-      var queries2 = splitParam(combinedQuery2, ' UNION ALL ');
 
 			var map = new cartoMap();
+      var queries1 = map.splitParam(combinedQuery1, ' UNION ALL ');
+      var queries2 = map.splitParam(combinedQuery2, ' UNION ALL ');
 			map.createMap("map", "Info");
 			map.createMap("map", "Info");
 			
