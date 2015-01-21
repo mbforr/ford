@@ -148,7 +148,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		return this.layerArr[divID];
 	};
 
-	this.updateAllQuery = function(combinedQuery){
+	this.updateQuery = function(combinedQuery){
 		var queries = this.splitParam(combinedQuery, ' UNION ALL ');
 		this.updateAllNatQuery(queries.natQuery);
 		this.updateAllSubNatQuery(queries.subnatQuery);
