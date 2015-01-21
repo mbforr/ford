@@ -60,7 +60,7 @@
       var maps = [];
 			maps.push(new cartoMap());
       maps.push(new cartoMap());
-			
+
 			$(document).ready(function(){
         $("#formButtom").on("click",function(){
           map.updateQuery(combinedQuery1);
@@ -73,7 +73,8 @@
 		
 		    $('button.remove').click(function(event){
           event.preventDefault();
-          map.removeMap("map", "Info");
+          var deletedMap = maps.pop();
+          deletedMap.removeMap("map", "Info");
         });
 			});
       }
