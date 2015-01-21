@@ -217,4 +217,6 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		// code to empty infobox here
 		//$('#'+ infodivID).html("");
 	};
+
+	this.createMap('map', 'Info');
 };
