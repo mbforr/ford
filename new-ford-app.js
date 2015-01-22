@@ -70,8 +70,12 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		var numMaps = $('body > .map').length;
 		$('.map').eq(numMaps-1).remove();
 	}
-	this.createMap = function(divID, infodivID) {
-		var num_maps = $('body > .map').length;
+	this.createMap = function() {
+
+		var divID = 'map',
+			infodivID = 'Info',
+			num_maps = $('body > .map').length;
+
 		divID += num_maps+1;
 		infodivID += num_maps+1;
 		$('<div class="map" id="'+divID+'"></div><br/>')
@@ -218,5 +222,5 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		//$('#'+ infodivID).html("");
 	};
 
-	this.createMap('map', 'Info');
+	this.createMap();
 };
