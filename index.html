@@ -63,7 +63,9 @@
 
 			$(document).ready(function(){
         $("#formButtom").on("click",function(){
-          map.updateQuery(combinedQuery1);
+          for(var index in maps){
+            maps[0].updateQuery(combinedQuery1);
+          }
         });
 				
         $('button.add').click(function(event){

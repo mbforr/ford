@@ -58,6 +58,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 	
 	this.mapArr = [];
 	this.layerArr = [];
+	this.id;
 
 	this.splitParam = function(param, delimiter){
 		var ix = param.indexOf(delimiter);
@@ -76,6 +77,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 			infodivID = 'Info',
 			num_maps = $('body > .map').length;
 
+		this.id = num_maps+1;
 		divID += num_maps+1;
 		infodivID += num_maps+1;
 		$('<div class="map" id="'+divID+'"></div><br/>')
@@ -154,8 +156,8 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 
 	this.updateQuery = function(combinedQuery){
 		var queries = this.splitParam(combinedQuery, ' && ');
-		this.updateAllNatQuery(queries.natQuery);
-		this.updateAllSubNatQuery(queries.subnatQuery);
+		this.updateNatQuery('map'+this.id, queries.natQuery);
+		this.updateSubNatQuery('map'+this.id, queries.subnatQuery);
 	};
 
 	this.updateAllNatQuery = function(query){
