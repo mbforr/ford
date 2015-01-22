@@ -66,7 +66,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		return {natQuery:param1, subnatQuery:param2};
 	}
 
-	this.removeMap = function(divID, infodivID) {
+	this.removeMap = function() {
 		var numMaps = $('body > .map').length;
 		$('.map').eq(numMaps-1).remove();
 	}
