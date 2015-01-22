@@ -43,7 +43,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
   });        
 });
 
- function cartoMap() {
+ function cartoMap(initialQuery) {
 	var queryInitial_Nat="SELECT wb.the_geom_webmercator, wb.cartodb_id, sum(g.amount) as total_amount, l.locationname,  l.abbreviationcode FROM world_borders wb,  location l,  grants_locations gl,  grants g where wb.iso2=l.abbreviationcode and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' group by l.locationname, l.abbreviationcode, wb.the_geom_webmercator,wb.cartodb_id order by l.locationname";
 	var queryInitial_SubNat="SELECT sn.the_geom_webmercator, sn.cartodb_id, sum(g.amount) as total_amount, sn.name_0 as country,l.locationname FROM subnat sn, location l,  grants_locations gl,  grants g where sn.name_1=l.locationname and l.id=gl.locationid and gl.grantid=g.id and l.locationtype not in ('Continent', 'Country', 'Logical Group', 'Part Of Continent', 'Part Of Globe', 'Part Of Country', 'Union Territory') group by l.locationname, sn.the_geom_webmercator,sn.cartodb_id order by l.locationname";
 	
@@ -222,5 +222,11 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		//$('#'+ infodivID).html("");
 	};
 
+
+	if(initialQuery != undefined){
+		var queriesObj = this.splitParam(initialQuery, " && ");
+		queryInitial_Nat = queriesObj.natQuery;
+		queryInitial_SubNat = queriesObj.subnatQuery;
+	}
 	this.createMap();
 };
