@@ -113,7 +113,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 		  self.layerArr[divID] = layer;
           natsublayer= layer.getSubLayer(0); 
           subnatsublayer= layer.getSubLayer(1); 
-          natsublayer.setInteraction(true)
+          natsublayer.setInteraction(true);
           subnatsublayer.setInteraction(true);
           
           natsublayer.on('featureOver', function (e, pos, latlng, data){
