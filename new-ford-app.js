@@ -43,7 +43,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
   });        
 });
 
- function cartoMap(initialQuery) {
+ function cartoMap(initialQuery, containerDivID) {
 	var queryInitial_Nat="SELECT wb.the_geom_webmercator, wb.cartodb_id, sum(g.amount) as total_amount, l.locationname,  l.abbreviationcode FROM world_borders wb,  location l,  grants_locations gl,  grants g where wb.iso2=l.abbreviationcode and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' group by l.locationname, l.abbreviationcode, wb.the_geom_webmercator,wb.cartodb_id order by l.locationname";
 	var queryInitial_SubNat="SELECT sn.the_geom_webmercator, sn.cartodb_id, sum(g.amount) as total_amount, sn.name_0 as country,l.locationname FROM subnat sn, location l,  grants_locations gl,  grants g where sn.name_1=l.locationname and l.id=gl.locationid and gl.grantid=g.id and l.locationtype not in ('Continent', 'Country', 'Logical Group', 'Part Of Continent', 'Part Of Globe', 'Part Of Country', 'Union Territory') group by l.locationname, sn.the_geom_webmercator,sn.cartodb_id order by l.locationname";
 	
@@ -58,7 +58,7 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 	
 	this.mapArr = [];
 	this.layerArr = [];
-	this.id;
+	this.divID;
 
 	this.splitParam = function(param, delimiter){
 		var ix = param.indexOf(delimiter);
@@ -77,12 +77,17 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 			infodivID = 'Info',
 			num_maps = $('body > .map').length;
 
-		this.id = num_maps+1;
-		divID += num_maps+1;
-		infodivID += num_maps+1;
-		$('<div class="map" id="'+divID+'"></div><br/>')
-			.appendTo('body')
-			.append('<div class="info" id="'+infodivID+'"></div>');
+		if(containerDivID === null){
+			divID += num_maps+1;
+			this.divID = divID;
+			infodivID += num_maps+1;
+			$('<div class="map" id="'+divID+'"></div><br/>')
+				.appendTo('body')
+				.append('<div class="info" id="'+infodivID+'"></div>');
+		} else {
+			divID = containerDivID;
+			$('#'+divID).append('<div class="info" id="'+infodivID+'"></div>');
+		}
 
 		var self = this;
 		var InitialCenter = new L.LatLng(40, 0);
@@ -156,8 +161,8 @@ $.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+sql_statement, fu
 
 	this.updateQuery = function(combinedQuery){
 		var queries = this.splitParam(combinedQuery, ' && ');
-		this.updateNatQuery('map'+this.id, queries.natQuery);
-		this.updateSubNatQuery('map'+this.id, queries.subnatQuery);
+		this.updateNatQuery(this.divID, queries.natQuery);
+		this.updateSubNatQuery(this.divID, queries.subnatQuery);
 	};
 
 	this.updateAllNatQuery = function(query){
