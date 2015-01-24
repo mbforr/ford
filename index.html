@@ -25,24 +25,6 @@
 			maps.push(new cartoMap(combinedQuery1));
       maps.push(new cartoMap(combinedQuery2));
 
-			$(document).ready(function(){
-        $("#formButtom").on("click",function(){
-          for(var index in maps){
-            maps[index].updateQuery(combinedQuery1);
-          }
-        });
-				
-        $('button.add').click(function(event){
-          event.preventDefault();
-          maps.push(new cartoMap());
-        });
-		
-		    $('button.remove').click(function(event){
-          event.preventDefault();
-          var deletedMap = maps.pop();
-          deletedMap.removeMap();
-        });
-			});
       }
 		
       window.onload = main;
