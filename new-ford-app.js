@@ -1,4 +1,5 @@
 function cartoMap(query, divId) { 
+	var account_name = 'sgcm';
      var cssDictionary = ['#006D2C', '#2CA25F', '#66C2A4', '#B2E2E2', '#EDF8FB'];// color ramp
  
      // initial cartoCSS for National and Subnational levels
@@ -27,7 +28,7 @@ function cartoMap(query, divId) {
 
 			cartodb.createLayer(this.map,
 				{
-					user_name: CARTO_MAP.account_name,
+					user_name: account_name,
 					type: 'cartodb',
 					sublayers: [
 						{
