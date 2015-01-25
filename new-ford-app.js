@@ -92,24 +92,7 @@ function cartoMap(query, divID) {
 			);
 		});
 
-			// <div id='chart' style='float: left; width:60px;background-color: #BBBBBF'></div>
-			// <div style='float: left; width:200px;background-color: #BBBBBF;height:50px'>
-			// 	<p style='font-size: 10px;text-transform: uppercase;padding-top: 5px;'>"+percentage+" OF "+data.country+" total:</p>
-			// 	<p>$"+national_value+"</p>
-			// </div>
-
-
-		// if(region!=data.locationname){
-		// 	region=data.locationname;
-		// 	getNationalValue(queryForSubnational, function(national_val){
-		// 		console.log('national value for '+queryForSubnational)
-		// 		console.log(national_val)
-		// 		national_value=national_val;
-		// 		percentage=(value*100)/national_value;
-		// 		percentage=percentage.toFixed(1)+"%";
 		// 		createDonnutChart(value,national_value)
-		// 	});
-		// }          
     };
 
 	this.createMap();
