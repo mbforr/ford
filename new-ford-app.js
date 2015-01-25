@@ -68,11 +68,11 @@ function cartoMap(query, divID) {
 		// Create info box
 		$container.append('<div class="info"></div>')
 	};
- 	natFeatureOver = function (e, pos, latlng, data){
+ 	var natFeatureOver = function (e, pos, latlng, data){
 		var value= data.total_amount;
 		$container.children('.info').html("<div><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div>");
     };
-	subNatFeatureOver = function (e, pos, latlng, data, queryForSubnational){
+	var subNatFeatureOver = function (e, pos, latlng, data, queryForSubnational){
 		var value= data.total_amount;
 		var subNationalName = data.locationname;
 		var nationalName = data.country;
