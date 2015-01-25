@@ -17,7 +17,7 @@ function cartoMap(query, divID) {
 
 	function createDonnutChart(value, national_value){
 		var chart = c3.generate({
-			bindto: '.chart',
+			bindto: '#'+ divID + ' .chart',
 			size: { height: 50, width: 60 },
 			data: {
 				columns: [
