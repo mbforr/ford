@@ -73,26 +73,43 @@ function cartoMap(query, divID) {
 		$container.children('.info').html("<div><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div>");
     };
 	subNatFeatureOver = function (e, pos, latlng, data, queryForSubnational){
-		console.log('_________________________________________')
-		console.log(queryForSubnational)
-		var national_value;
 		var value= data.total_amount;
-		var percentage;
+		var subNationalName = data.locationname;
+		var nationalName = data.country;
+		$.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+queryForSubnational, function(data) {
+			$container.children('.info').html( 
+				"<div>"+
+					"<p><strong>" + subNationalName +"</strong></p>"+
+					"<p>$"+value.toFixed(2)+"</p>"+
+				"</div>"
+			);
+			var result = data.rows[0];
+			var national_value = result.total_amount;
+			var percentage = (value / national_value)*100;
+			$container.children('.info').append(
+				"<div><p><strong>" + nationalName + "</strong></p><p>$"+national_value.toFixed(2)+"</p></div>" + 
+				"<div><p><strong>% of national total:</strong></p><p>"+percentage.toFixed(2)+"%</p></div>"
+			);
+		});
 
-		if(region!=data.locationname){
-			region=data.locationname;
-			getNationalValue(queryForSubnational, function(national_val){
-				console.log('····························')
-				console.log('national value for '+queryForSubnational)
-				console.log(national_val)
-				console.log('····························')
-				national_value=national_val;
-				percentage=(value*100)/national_value;
-				percentage=percentage.toFixed(1)+"%";
-				$('#'+infodivID).html("<div style='padding:5px'><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div><div id='chart' style='float: left; width:60px;background-color: #BBBBBF'></div><div style='float: left; width:200px;background-color: #BBBBBF;height:50px'><p style='font-size: 10px;text-transform: uppercase;padding-top: 5px;'>"+percentage+" OF "+data.country+" total:</p><p>$"+national_value+"</div>");
-				createDonnutChart(value,national_value)
-			});
-		}          
+			// <div id='chart' style='float: left; width:60px;background-color: #BBBBBF'></div>
+			// <div style='float: left; width:200px;background-color: #BBBBBF;height:50px'>
+			// 	<p style='font-size: 10px;text-transform: uppercase;padding-top: 5px;'>"+percentage+" OF "+data.country+" total:</p>
+			// 	<p>$"+national_value+"</p>
+			// </div>
+
+
+		// if(region!=data.locationname){
+		// 	region=data.locationname;
+		// 	getNationalValue(queryForSubnational, function(national_val){
+		// 		console.log('national value for '+queryForSubnational)
+		// 		console.log(national_val)
+		// 		national_value=national_val;
+		// 		percentage=(value*100)/national_value;
+		// 		percentage=percentage.toFixed(1)+"%";
+		// 		createDonnutChart(value,national_value)
+		// 	});
+		// }          
     };
 
 	this.createMap();
