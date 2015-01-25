@@ -9,23 +9,23 @@ function cartoMap(query, divID) {
 	this.createMap = function () {
  
 		var InitialCenter = new L.LatLng(40, 0);
-		this.map = L.map(divID, { zoomControl: false});
-		this.map.setView(InitialCenter, 3);
-		this.splitParam = function(param, delimiter){
+		var map = L.map(divID, { zoomControl: false});
+		var splitParam = function(param, delimiter){
 			var ix = param.indexOf(delimiter);
 			var param1 = param.substring(0,ix);
 			var param2 = param.substring(ix + delimiter.length, param.length);
 			return {natQuery:param1, subnatQuery:param2};
 		}
-			var queriesObj = this.splitParam(query, " && ");
+		var queriesObj = splitParam(query, " && ");
 		var queryInitial_Nat = queriesObj.natQuery;
 		var queryInitial_SubNat = queriesObj.subnatQuery;
 
+		map.setView(InitialCenter, 3);
 		L.tileLayer('http://a.tiles.mapbox.com/v3/fordfoundation.370e1581/{z}/{x}/{y}.png', {
 		attribution: ''
-		}).addTo(this.map);
+		}).addTo(map);
 
-		cartodb.createLayer(this.map,
+		cartodb.createLayer(map,
 			{
 				user_name: account_name,
 				type: 'cartodb',
@@ -42,7 +42,7 @@ function cartoMap(query, divID) {
 					}
 				]
 			}
-		).addTo(this.map);
+		).addTo(map);
 	};
  
 	this.createMap();
