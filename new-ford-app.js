@@ -49,7 +49,7 @@ function cartoMap(query, divID) {
 		).addTo(map);
 
 		// Create info box
-		$('#'+divID).append('<div class="info"></div>')
+		$container.append('<div class="info"></div>')
 	};
  
 	this.createMap();
