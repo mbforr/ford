@@ -20,6 +20,7 @@ function cartoMap(query, divID) {
 		var queryInitial_Nat = queriesObj.natQuery;
 		var queryInitial_SubNat = queriesObj.subnatQuery;
 
+		// Create map
 		map.setView(InitialCenter, 3);
 		L.tileLayer('http://a.tiles.mapbox.com/v3/fordfoundation.370e1581/{z}/{x}/{y}.png', {
 			attribution: ''
@@ -42,6 +43,8 @@ function cartoMap(query, divID) {
 				]
 			}
 		).addTo(map);
+
+		// Create info box
 	};
  
 	this.createMap();
