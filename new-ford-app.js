@@ -46,7 +46,8 @@ function cartoMap(query, divID) {
 					}
 				]
 			}
-		).addTo(map);
+		)
+		.addTo(map)
 
 		// Create info box
 		$container.append('<div class="info"></div>')
