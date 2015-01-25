@@ -13,7 +13,32 @@ function cartoMap(query, divID) {
 		var param2 = param.substring(ix + delimiter.length, param.length);
 		return {natQuery:param1, subnatQuery:param2};
 	}
-	
+
+
+	function createDonnutChart(value, national_value){
+		var chart = c3.generate({
+			bindto: '.chart',
+			size: { height: 50, width: 60 },
+			data: {
+				columns: [
+					['data1', value],
+					['data2', national_value],
+				],
+				type : 'donut'
+			},
+			color: {
+				pattern: ['#10AA33', '#090']
+			},
+			donut: {
+				label: {
+					show: false,
+				}
+			},
+			legend: { show: false },
+			tooltip: { show: false }
+		});
+	};
+
 	var createMap = function () {
  
 		var InitialCenter = new L.LatLng(40, 0);
@@ -75,6 +100,7 @@ function cartoMap(query, divID) {
     };
 	var subNatFeatureOver = function (e, pos, latlng, data, queryForSubnational){
 		var value= data.total_amount;
+		var national_value;
 		var subNationalName = data.locationname;
 		var nationalName = data.country;
 		$.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+queryForSubnational, function(data) {
@@ -85,15 +111,16 @@ function cartoMap(query, divID) {
 				"</div>"
 			);
 			var result = data.rows[0];
-			var national_value = result.total_amount;
+			national_value = result.total_amount;
 			var percentage = (value / national_value)*100;
 			$container.children('.info').append(
 				"<div><p><strong>" + nationalName + "</strong></p><p>$"+national_value.toFixed(2)+"</p></div>" + 
-				"<div><p><strong>% of national total:</strong></p><p>"+percentage.toFixed(2)+"%</p></div>"
+				"<div><p><strong>% of national total:</strong></p><p>"+percentage.toFixed(2)+"%</p></div>" +
+				"<div class='chart'></div>"
 			);
+			createDonnutChart(value,national_value);
 		});
 
-		// 		createDonnutChart(value,national_value)
     };
 
 	createMap();
