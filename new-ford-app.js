@@ -5,7 +5,8 @@ function cartoMap(query, divID) {
 	// initial cartoCSS for National and Subnational levels
 	var cssInitial_Nat = "[zoom<=3]{#world_borders{  polygon-fill: #EDF8FB;  polygon-opacity: 0.8;  line-color: #FFF;  line-width: 1;  line-opacity: 1;}#world_borders [ total_amount <= 1781668262.38] {   polygon-fill: " + cssDictionary[0] + ";}#world_borders [ total_amount <= 31403245] {   polygon-fill:" + cssDictionary[1] + ";}#world_borders [ total_amount <= 3713003.72] {   polygon-fill: " + cssDictionary[2] + ";}#world_borders [ total_amount <= 1144718] {   polygon-fill:" + cssDictionary[3] + ";} #world_borders [ total_amount <= 400000] {   polygon-fill: " + cssDictionary[4] + ";}}";
 	var cssInitial_SubNat = "[zoom>3]{#subnat{  polygon-fill: #EDF8FB;  polygon-opacity: 0.8;  line-color: #FFF;  line-width: 1;  line-opacity: 1;}#subnat [ total_amount <= 118349410.5] {   polygon-fill:" + cssDictionary[0] + ";}#subnat [ total_amount <= 11477333] {   polygon-fill: " + cssDictionary[1] +";}#subnat [ total_amount <= 4490000] {   polygon-fill: " + cssDictionary[2] + ";}#subnat [ total_amount <= 1485000] {   polygon-fill: " + cssDictionary[3] + ";}#subnat [ total_amount <= 500000] {   polygon-fill: " + cssDictionary[4] + ";}}";
- 
+ 	var $container;
+
 	this.createMap = function () {
  
 		var InitialCenter = new L.LatLng(40, 0);
@@ -19,6 +20,9 @@ function cartoMap(query, divID) {
 		var queriesObj = splitParam(query, " && ");
 		var queryInitial_Nat = queriesObj.natQuery;
 		var queryInitial_SubNat = queriesObj.subnatQuery;
+
+		//setting private vars
+		$container = $('#'+divID);
 
 		// Create map
 		map.setView(InitialCenter, 3);
