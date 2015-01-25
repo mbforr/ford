@@ -22,9 +22,8 @@ function cartoMap(query, divID) {
 
 		map.setView(InitialCenter, 3);
 		L.tileLayer('http://a.tiles.mapbox.com/v3/fordfoundation.370e1581/{z}/{x}/{y}.png', {
-		attribution: ''
+			attribution: ''
 		}).addTo(map);
-
 		cartodb.createLayer(map,
 			{
 				user_name: account_name,
