@@ -92,7 +92,7 @@ function cartoMap(query, divID) {
 
 
 		// Create info box
-		$container.append('<div class="info"></div>')
+		$('<div class="info"></div>').appendTo($container).mousemove(function(event){event.stopImmediatePropagation()});
 	};
  	var natFeatureOver = function (e, pos, latlng, data){
 		var value= data.total_amount;
