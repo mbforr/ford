@@ -16,6 +16,10 @@ body {
 	width: 261px;
 }
 
+.info > div {
+	padding:5px;
+}
+
 .map {
 	position: relative;
 }

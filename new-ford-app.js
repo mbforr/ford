@@ -71,7 +71,7 @@ function cartoMap(query, divID) {
 	};
  	natFeatureOver = function (e, pos, latlng, data){
 		var value= data.total_amount;
-		$container.children('.info').html("<div style='padding:5px'><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div>");
+		$container.children('.info').html("<div><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div>");
     };
 	subNatFeatureOver = function (e, pos, latlng, data, queryForSubnational){
 		console.log('_________________________________________')
