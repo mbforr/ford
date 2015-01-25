@@ -7,101 +7,14 @@ body {
 	box-sizing: border-box;
 }
 
-@font-face {
-	font-family: KievitWebPro;
-	src: url(fonts/KievitWebPro.eot);
-	src: url(fonts/KievitWebPro.woff) format('woff');
-}
-	  
-.wrapper{
-	z-index: 1000000;
-	position: absolute;
-	top: 20px;
-	right: 0;
-	background-color: rgba(255, 255, 255, 0.85);
-}
-
-.form{
-	z-index: 1000000;
-	padding: 10px;
-}
-
-.updateButton {
-	border-radius: 3px;
-	display:inline-block;
-	font-size:15px;
-	font-weight:bold;
-	font-style:normal;
-	height:41px;
-	line-height:41px;
-	width:131px;
-	text-decoration:none;
-	text-align:center;
-	margin-top: 15px;
-	margin-left: 15px;
-}
-
 .info {
 	position: absolute;
 	bottom: 35px;
 	left: 5px;
 	background-color: white;
-	z-index: 1000000;
+	z-index: 1;
 	width: 261px;
 }
-	  
-option{
-	font-family: KievitWebPro, Helvetica, Arial, sans-serif;
-}
-	  
-p {
-	font-family: KievitWebPro, Helvetica, Arial, sans-serif;
-	font: KievitWebPro, Helvetica, Arial, sans-serif;
-}
-
 .map {
-	padding: 0;
-	margin: 0;
 	position: relative;
-}
-
-.wrapper,.wrapper2 {
-	z-index: 1000000;
-	position: absolute;
-	top: 20px;
-	right: 0;
-	background-color: rgba(255, 255, 255, 0.85);
-}
-
-.wrapper2{
-	top: 55%;
-}
-
-.form{
-	z-index: 1000000;
-	padding: 10px;
-}
-
-.updateButton {
-	border-radius: 3px;
-	display:inline-block;
-	font-size:15px;
-	font-weight:bold;
-	font-style:normal;
-	height:41px;
-	line-height:41px;
-	width:131px;
-	text-decoration:none;
-	text-align:center;
-	margin-top: 15px;
-	margin-left: 15px;
-}
-	  
-option{
-	font-family: KievitWebPro, Helvetica, Arial, sans-serif;
-}
-	  
-p {
-	font-family: KievitWebPro, Helvetica, Arial, sans-serif;
-	font: KievitWebPro, Helvetica, Arial, sans-serif;
 }
