@@ -7,7 +7,7 @@ function cartoMap(query, divID) {
 	var cssInitial_SubNat = "[zoom>3]{#subnat{  polygon-fill: #EDF8FB;  polygon-opacity: 0.8;  line-color: #FFF;  line-width: 1;  line-opacity: 1;}#subnat [ total_amount <= 118349410.5] {   polygon-fill:" + cssDictionary[0] + ";}#subnat [ total_amount <= 11477333] {   polygon-fill: " + cssDictionary[1] +";}#subnat [ total_amount <= 4490000] {   polygon-fill: " + cssDictionary[2] + ";}#subnat [ total_amount <= 1485000] {   polygon-fill: " + cssDictionary[3] + ";}#subnat [ total_amount <= 500000] {   polygon-fill: " + cssDictionary[4] + ";}}";
  	var $container;
 
-	this.createMap = function () {
+	var createMap = function () {
  
 		var InitialCenter = new L.LatLng(40, 0);
 		var map = L.map(divID, { zoomControl: false});
@@ -95,5 +95,5 @@ function cartoMap(query, divID) {
 		// 		createDonnutChart(value,national_value)
     };
 
-	this.createMap();
+	createMap();
 };
