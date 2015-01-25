@@ -48,10 +48,53 @@ function cartoMap(query, divID) {
 			}
 		)
 		.addTo(map)
+		.on('done', function(layer) {
+			var natsublayer= layer.getSubLayer(0); 
+			var subnatsublayer= layer.getSubLayer(1); 
+			natsublayer.setInteraction(true);
+			subnatsublayer.setInteraction(true);
+
+			natsublayer.on('featureOver', function (e, pos, latlng, data){
+				natFeatureOver(e, pos, latlng, data);
+			});
+
+			subnatsublayer.on('featureOver', function(e, pos, latlng, data) {
+				var queryForSubnational = "SELECT sum(g.amount) as total_amount FROM location l,  grants_locations gl,  grants g where l.locationname='"+data.country+"' and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' group by l.locationname";
+				subNatFeatureOver(e, pos, latlng, data, queryForSubnational);
+			});
+          	//subnatsublayer.on('featureOut', cleanInfobox(infodivID));
+        });
+
 
 		// Create info box
 		$container.append('<div class="info"></div>')
 	};
- 
+ 	natFeatureOver = function (e, pos, latlng, data){
+		var value= data.total_amount;
+		$container.children('.info').html("<div style='padding:5px'><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div>");
+    };
+	subNatFeatureOver = function (e, pos, latlng, data, queryForSubnational){
+		console.log('_________________________________________')
+		console.log(queryForSubnational)
+		var national_value;
+		var value= data.total_amount;
+		var percentage;
+
+		if(region!=data.locationname){
+			region=data.locationname;
+			getNationalValue(queryForSubnational, function(national_val){
+				console.log('····························')
+				console.log('national value for '+queryForSubnational)
+				console.log(national_val)
+				console.log('····························')
+				national_value=national_val;
+				percentage=(value*100)/national_value;
+				percentage=percentage.toFixed(1)+"%";
+				$('#'+infodivID).html("<div style='padding:5px'><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div><div id='chart' style='float: left; width:60px;background-color: #BBBBBF'></div><div style='float: left; width:200px;background-color: #BBBBBF;height:50px'><p style='font-size: 10px;text-transform: uppercase;padding-top: 5px;'>"+percentage+" OF "+data.country+" total:</p><p>$"+national_value+"</div>");
+				createDonnutChart(value,national_value)
+			});
+		}          
+    };
+
 	this.createMap();
 };
