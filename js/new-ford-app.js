@@ -1,10 +1,19 @@
-function cartoMap(query, divID) { 
+function cartoMap(query, divID, colors) { 
 	var account_name = 'sgcm';
-	var cssDictionary = ['#006D2C', '#2CA25F', '#66C2A4', '#B2E2E2', '#EDF8FB'];// color ramp
+
+	var cssDictionary = ['#006D2C', '#2CA25F', '#66C2A4', '#B2E2E2', '#EDF8FB'];// color ramp,
+		borderColor = '#FFF',
+		polygonFillColor = '#EDF8FB';
+
+	if(colors !== null && typeof colors == "object") {
+		cssDictionary = colors.cssDictionary;
+		borderColor = colors.borderColor;
+		polygonFillColor = colors.polygonFillColor;
+	}
  
 	// initial cartoCSS for National and Subnational levels
-	var cssInitial_Nat = "[zoom<=3]{#world_borders{  polygon-fill: #EDF8FB;  polygon-opacity: 0.8;  line-color: #FFF;  line-width: 1;  line-opacity: 1;}#world_borders [ total_amount <= 1781668262.38] {   polygon-fill: " + cssDictionary[0] + ";}#world_borders [ total_amount <= 31403245] {   polygon-fill:" + cssDictionary[1] + ";}#world_borders [ total_amount <= 3713003.72] {   polygon-fill: " + cssDictionary[2] + ";}#world_borders [ total_amount <= 1144718] {   polygon-fill:" + cssDictionary[3] + ";} #world_borders [ total_amount <= 400000] {   polygon-fill: " + cssDictionary[4] + ";}}";
-	var cssInitial_SubNat = "[zoom>3]{#subnat{  polygon-fill: #EDF8FB;  polygon-opacity: 0.8;  line-color: #FFF;  line-width: 1;  line-opacity: 1;}#subnat [ total_amount <= 118349410.5] {   polygon-fill:" + cssDictionary[0] + ";}#subnat [ total_amount <= 11477333] {   polygon-fill: " + cssDictionary[1] +";}#subnat [ total_amount <= 4490000] {   polygon-fill: " + cssDictionary[2] + ";}#subnat [ total_amount <= 1485000] {   polygon-fill: " + cssDictionary[3] + ";}#subnat [ total_amount <= 500000] {   polygon-fill: " + cssDictionary[4] + ";}}";
+	var cssInitial_Nat = "[zoom<=3]{#world_borders{  polygon-fill: "+polygonFillColor+";  polygon-opacity: 0.8;  line-color: "+borderColor+";  line-width: 1;  line-opacity: 1;}#world_borders [ total_amount <= 1781668262.38] {   polygon-fill: " + cssDictionary[0] + ";}#world_borders [ total_amount <= 31403245] {   polygon-fill:" + cssDictionary[1] + ";}#world_borders [ total_amount <= 3713003.72] {   polygon-fill: " + cssDictionary[2] + ";}#world_borders [ total_amount <= 1144718] {   polygon-fill:" + cssDictionary[3] + ";} #world_borders [ total_amount <= 400000] {   polygon-fill: " + cssDictionary[4] + ";}}";
+	var cssInitial_SubNat = "[zoom>3]{#subnat{  polygon-fill: "+polygonFillColor+";  polygon-opacity: 0.8;  line-color: "+borderColor+";  line-width: 1;  line-opacity: 1;}#subnat [ total_amount <= 118349410.5] {   polygon-fill:" + cssDictionary[0] + ";}#subnat [ total_amount <= 11477333] {   polygon-fill: " + cssDictionary[1] +";}#subnat [ total_amount <= 4490000] {   polygon-fill: " + cssDictionary[2] + ";}#subnat [ total_amount <= 1485000] {   polygon-fill: " + cssDictionary[3] + ";}#subnat [ total_amount <= 500000] {   polygon-fill: " + cssDictionary[4] + ";}}";
  	var $container;
 
 	var splitParam = function(param, delimiter){
