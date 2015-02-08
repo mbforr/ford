@@ -138,9 +138,11 @@ function cartoMap(query, divID, colors) {
     this.update = function(query){
     	if(query.indexOf(delimiter) == -1){
 	    	natsublayer.setSQL(query);
+	    	subnatsublayer.hide();
     	} else {
 			var queriesObj = splitParam(query, delimiter);
 			natsublayer.setSQL(queriesObj.natQuery);
+			subnatsublayer.show();
 			subnatsublayer.setSQL(queriesObj.subnatQuery);
     	}
     };
