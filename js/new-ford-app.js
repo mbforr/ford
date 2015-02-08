@@ -136,7 +136,13 @@ function cartoMap(query, divID, colors) {
 
     };
     this.update = function(query){
-    	natsublayer.setSQL(query);
+    	if(query.indexOf(delimiter) == -1){
+	    	natsublayer.setSQL(query);
+    	} else {
+			var queriesObj = splitParam(query, delimiter);
+			natsublayer.setSQL(queriesObj.natQuery);
+			subnatsublayer.setSQL(queriesObj.subnatQuery);
+    	}
     };
 	createMap();
 };
