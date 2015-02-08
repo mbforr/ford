@@ -10,7 +10,7 @@ function cartoMap(query, divID, colors) {
 	var cssInitial_Nat,
 		cssInitial_SubNat,
 		$container,
-		subnatsublayer,
+		natsublayer,
 		subnatsublayer;
 
 	var splitParam = function(param, delimiter){
