@@ -135,6 +135,8 @@ function cartoMap(query, divID, colors) {
 		});
 
     };
-
+    this.update = function(query){
+    	natsublayer.setSQL(query);
+    };
 	createMap();
 };
