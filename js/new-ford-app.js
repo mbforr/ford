@@ -1,5 +1,6 @@
 function cartoMap(query, divID, colors) { 
-	var account_name = 'sgcm';
+	var account_name = 'sgcm',
+		delimiter = ' && ';
 
 	var cssDictionary = ['#006D2C', '#2CA25F', '#66C2A4', '#B2E2E2', '#EDF8FB'];// color ramp,
 		borderColor = '#FFF',
@@ -55,7 +56,7 @@ function cartoMap(query, divID, colors) {
  
 		var InitialCenter = new L.LatLng(40, 0);
 		var map = L.map(divID, { zoomControl: false});
-		var queriesObj = splitParam(query, " && ");
+		var queriesObj = splitParam(query, delimiter);
 		var queryInitial_Nat = queriesObj.natQuery;
 		var queryInitial_SubNat = queriesObj.subnatQuery;
 
