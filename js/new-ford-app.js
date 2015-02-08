@@ -8,7 +8,9 @@ function cartoMap(query, divID, colors) {
 	// initial cartoCSS for National and Subnational levels
 	var cssInitial_Nat,
 		cssInitial_SubNat,
-		$container;
+		$container,
+		subnatsublayer,
+		subnatsublayer;
 
 	var splitParam = function(param, delimiter){
 		var ix = param.indexOf(delimiter);
@@ -85,8 +87,8 @@ function cartoMap(query, divID, colors) {
 		)
 		.addTo(map)
 		.on('done', function(layer) {
-			var natsublayer= layer.getSubLayer(0); 
-			var subnatsublayer= layer.getSubLayer(1); 
+			natsublayer= layer.getSubLayer(0); 
+			subnatsublayer= layer.getSubLayer(1); 
 			natsublayer.setInteraction(true);
 			subnatsublayer.setInteraction(true);
 
