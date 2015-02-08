@@ -1,3 +1,8 @@
+.map {
+	position: relative;
+	height: 100%;
+}
+
 .info {
 	position: absolute;
 	bottom: 35px;
@@ -9,9 +14,4 @@
 
 .info > div {
 	padding:5px;
-}
-
-.map {
-	position: relative;
-	height: 100%;
 }
