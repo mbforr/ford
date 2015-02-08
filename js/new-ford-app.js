@@ -135,12 +135,18 @@ function cartoMap(query, divID, colors) {
 		});
 
     };
-    this.update = function(query){
+    this.update = function(query, layer){
     	if(query.indexOf(delimiter) == -1){
-	    	natsublayer.setSQL(query);
-	    	subnatsublayer.hide();
+    		if(layer == null || layer == 'nat'){
+		    	natsublayer.setSQL(query);
+		    	subnatsublayer.hide();
+    		} else if (layer == 'subnat'){
+		    	subnatsublayer.setSQL(query);
+		    	natsublayer.hide();
+    		}
     	} else {
 			var queriesObj = splitParam(query, delimiter);
+			natsublayer.show();
 			natsublayer.setSQL(queriesObj.natQuery);
 			subnatsublayer.show();
 			subnatsublayer.setSQL(queriesObj.subnatQuery);
