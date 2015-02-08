@@ -4,17 +4,11 @@ function cartoMap(query, divID, colors) {
 	var cssDictionary = ['#006D2C', '#2CA25F', '#66C2A4', '#B2E2E2', '#EDF8FB'];// color ramp,
 		borderColor = '#FFF',
 		polygonFillColor = '#EDF8FB';
-
-	if(colors !== null && typeof colors == "object") {
-		cssDictionary = colors.cssDictionary;
-		borderColor = colors.borderColor;
-		polygonFillColor = colors.polygonFillColor;
-	}
  
 	// initial cartoCSS for National and Subnational levels
-	var cssInitial_Nat = "[zoom<=3]{#world_borders{  polygon-fill: "+polygonFillColor+";  polygon-opacity: 0.8;  line-color: "+borderColor+";  line-width: 1;  line-opacity: 1;}#world_borders [ total_amount <= 1781668262.38] {   polygon-fill: " + cssDictionary[0] + ";}#world_borders [ total_amount <= 31403245] {   polygon-fill:" + cssDictionary[1] + ";}#world_borders [ total_amount <= 3713003.72] {   polygon-fill: " + cssDictionary[2] + ";}#world_borders [ total_amount <= 1144718] {   polygon-fill:" + cssDictionary[3] + ";} #world_borders [ total_amount <= 400000] {   polygon-fill: " + cssDictionary[4] + ";}}";
-	var cssInitial_SubNat = "[zoom>3]{#subnat{  polygon-fill: "+polygonFillColor+";  polygon-opacity: 0.8;  line-color: "+borderColor+";  line-width: 1;  line-opacity: 1;}#subnat [ total_amount <= 118349410.5] {   polygon-fill:" + cssDictionary[0] + ";}#subnat [ total_amount <= 11477333] {   polygon-fill: " + cssDictionary[1] +";}#subnat [ total_amount <= 4490000] {   polygon-fill: " + cssDictionary[2] + ";}#subnat [ total_amount <= 1485000] {   polygon-fill: " + cssDictionary[3] + ";}#subnat [ total_amount <= 500000] {   polygon-fill: " + cssDictionary[4] + ";}}";
- 	var $container;
+	var cssInitial_Nat,
+		cssInitial_SubNat,
+		$container;
 
 	var splitParam = function(param, delimiter){
 		var ix = param.indexOf(delimiter);
@@ -49,6 +43,13 @@ function cartoMap(query, divID, colors) {
 	};
 
 	var createMap = function () {
+		if(colors !== null && typeof colors == "object") {
+			cssDictionary = colors.cssDictionary;
+			borderColor = colors.borderColor;
+			polygonFillColor = colors.polygonFillColor;
+		}
+		cssInitial_Nat = "[zoom<=3]{#world_borders{  polygon-fill: "+polygonFillColor+";  polygon-opacity: 0.8;  line-color: "+borderColor+";  line-width: 1;  line-opacity: 1;}#world_borders [ total_amount <= 1781668262.38] {   polygon-fill: " + cssDictionary[0] + ";}#world_borders [ total_amount <= 31403245] {   polygon-fill:" + cssDictionary[1] + ";}#world_borders [ total_amount <= 3713003.72] {   polygon-fill: " + cssDictionary[2] + ";}#world_borders [ total_amount <= 1144718] {   polygon-fill:" + cssDictionary[3] + ";} #world_borders [ total_amount <= 400000] {   polygon-fill: " + cssDictionary[4] + ";}}";
+		cssInitial_SubNat = "[zoom>3]{#subnat{  polygon-fill: "+polygonFillColor+";  polygon-opacity: 0.8;  line-color: "+borderColor+";  line-width: 1;  line-opacity: 1;}#subnat [ total_amount <= 118349410.5] {   polygon-fill:" + cssDictionary[0] + ";}#subnat [ total_amount <= 11477333] {   polygon-fill: " + cssDictionary[1] +";}#subnat [ total_amount <= 4490000] {   polygon-fill: " + cssDictionary[2] + ";}#subnat [ total_amount <= 1485000] {   polygon-fill: " + cssDictionary[3] + ";}#subnat [ total_amount <= 500000] {   polygon-fill: " + cssDictionary[4] + ";}}";
  
 		var InitialCenter = new L.LatLng(40, 0);
 		var map = L.map(divID, { zoomControl: false});
