@@ -1,7 +1,10 @@
 function cartoMap(query, divID, colors) { 
 	//configurable values
 	var account_name = 'sgcm',
-		delimiter = ' && ';
+		delimiter = ' && ',
+		southWest = L.latLng(80, 120),
+		northEast = L.latLng(-30, -120);
+
 
 	// initial cartoCSS for National and Subnational levels
 	var cssDictionary = ['#006D2C', '#2CA25F', '#66C2A4', '#B2E2E2', '#EDF8FB'];// color ramp,
