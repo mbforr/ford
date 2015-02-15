@@ -2,11 +2,11 @@ function cartoMap(query, divID, colors) {
 	var account_name = 'sgcm',
 		delimiter = ' && ';
 
+	// initial cartoCSS for National and Subnational levels
 	var cssDictionary = ['#006D2C', '#2CA25F', '#66C2A4', '#B2E2E2', '#EDF8FB'];// color ramp,
 		borderColor = '#FFF',
 		polygonFillColor = '#EDF8FB';
  
-	// initial cartoCSS for National and Subnational levels
 	var cssInitial_Nat,
 		cssInitial_SubNat,
 		$container,
