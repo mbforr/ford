@@ -1,4 +1,5 @@
 function cartoMap(query, divID, colors) { 
+	//configurable values
 	var account_name = 'sgcm',
 		delimiter = ' && ';
 
