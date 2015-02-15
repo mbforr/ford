@@ -7,6 +7,7 @@ function cartoMap(query, divID, colors) {
 		borderColor = '#FFF',
 		polygonFillColor = '#EDF8FB';
  
+ 	//private vars
 	var cssInitial_Nat,
 		cssInitial_SubNat,
 		$container,
