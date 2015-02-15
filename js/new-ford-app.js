@@ -69,7 +69,8 @@ function cartoMap(query, divID, colors) {
 		$container = $('#'+divID);
 
 		// Create map
-		map.setView(InitialCenter, 3);
+		map.setView(InitialCenter);
+		map.fitBounds(L.latLngBounds(southWest, northEast));
 		L.tileLayer('http://a.tiles.mapbox.com/v3/fordfoundation.370e1581/{z}/{x}/{y}.png', {
 			attribution: ''
 		}).addTo(map);
