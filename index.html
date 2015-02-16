@@ -18,15 +18,6 @@
     <script src="js/new-ford-app.js"></script>
     <script>
       function main() {
-        /* 
-            Example colors parameter
-            Passed in as third parameter to cartoMap
-        */
-        colors = {
-          cssDictionary:['#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff'],
-          borderColor:'#ff0000',
-          polygonFillColor: '#000000'
-        }
 
         var combinedQuery1="SELECT wb.the_geom_webmercator, wb.cartodb_id, sum(g.amount) as total_amount, l.locationname,  l.abbreviationcode FROM world_borders wb,  location l,  grants_locations gl,  grants g where wb.iso2=l.abbreviationcode and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' and g.amount>100000 group by l.locationname, l.abbreviationcode, wb.the_geom_webmercator,wb.cartodb_id order by l.locationname && SELECT sn.the_geom_webmercator, sn.cartodb_id, sum(g.amount) as total_amount, sn.name_0 as country,l.locationname FROM subnat sn, location l,  grants_locations gl,  grants g where sn.name_1=l.locationname and l.id=gl.locationid and gl.grantid=g.id and g.amount>100000 and l.locationtype not in ('Continent', 'Country', 'Logical Group', 'Part Of Continent', 'Part Of Globe', 'Part Of Country', 'Union Territory') group by l.locationname, sn.the_geom_webmercator,sn.cartodb_id order by l.locationname";
 

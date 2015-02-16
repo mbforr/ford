@@ -15,3 +15,25 @@
 .map .info > div {
 	padding:5px;
 }
+
+.mapColor1 {
+	background-color: #006D2C;
+}
+.mapColor2 {
+	background-color: #2CA25F;
+}
+.mapColor3 {
+	background-color: #66C2A4;
+}
+.mapColor4 {
+	background-color: #B2E2E2;
+}
+.mapColor5 {
+	background-color: #EDF8FB;
+}
+.mapBorderColor{
+	background-color: #FFF;
+}
+.mapPolygonFillColor{
+	background-color: #EDF8FB;
+}
