@@ -70,9 +70,33 @@ function cartoMap(query, divID) {
  
 		var InitialCenter = new L.LatLng(40, 0);
 		var map = L.map(divID, { zoomControl: false});
-		var queriesObj = splitParam(query, delimiter);
-		var queryInitial_Nat = queriesObj.natQuery;
-		var queryInitial_SubNat = queriesObj.subnatQuery;
+		var sublayers;
+
+		if(query.indexOf(' && ') !== -1){
+			var queriesObj = splitParam(query, delimiter);
+			var queryInitial_Nat = queriesObj.natQuery;
+			var queryInitial_SubNat = queriesObj.subnatQuery;
+			sublayers = [
+				{
+					sql: queryInitial_Nat,
+					cartocss: cssInitial_Nat,
+					interactivity: 'cartodb_id, total_amount, locationname'
+				},
+				{
+					sql: queryInitial_SubNat,
+					cartocss: cssInitial_SubNat,
+					interactivity: 'cartodb_id, total_amount, locationname, country'
+				}
+			];
+		} else {
+			sublayers = [
+				{
+					sql: query,
+					cartocss: cssInitial_Nat,
+					interactivity: 'cartodb_id, total_amount, locationname'
+				}
+			];
+		}
 
 		//setting private vars
 		$container = $('#'+divID);
@@ -87,18 +111,7 @@ function cartoMap(query, divID) {
 			{
 				user_name: account_name,
 				type: 'cartodb',
-				sublayers: [
-					{
-						sql: queryInitial_Nat,
-						cartocss: cssInitial_Nat,
-						interactivity: 'cartodb_id, total_amount, locationname'
-					},
-					{
-						sql: queryInitial_SubNat,
-						cartocss: cssInitial_SubNat,
-						interactivity: 'cartodb_id, total_amount, locationname, country'
-					}
-				]
+				sublayers: sublayers
 			}
 		)
 		.addTo(map)
