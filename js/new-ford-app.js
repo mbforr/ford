@@ -121,13 +121,13 @@ function cartoMap(query, divID) {
 			natsublayer.setInteraction(true);
 			subnatsublayer.setInteraction(true);
 
-			natsublayer.on('featureOver', function (e, pos, latlng, data){
-				natFeatureOver(e, pos, latlng, data);
+			natsublayer.on('featureOver', function (e, pos, latlng, national_data){
+				natFeatureOver(e, pos, latlng, national_data);
 			});
 
-			subnatsublayer.on('featureOver', function(e, pos, latlng, data) {
-				var queryForSubnational = layer.layers[0].options.sql.replace(" where ", " where l.locationname='"+data.country+"' and ");
-				subNatFeatureOver(e, pos, latlng, data, queryForSubnational);
+			subnatsublayer.on('featureOver', function(e, pos, latlng, subnational_data) {
+				var queryForNational = layer.layers[0].options.sql.replace(" where ", " where l.locationname='"+subnational_data.country+"' and ");
+				subNatFeatureOver(e, pos, latlng, subnational_data, queryForNational);
 			});
         });
 
@@ -139,27 +139,26 @@ function cartoMap(query, divID) {
 		var value= data.total_amount;
 		$container.children('.info').html("<div><p><strong>" + data.locationname +"</strong></p><p>$"+value.toFixed(2)+"</p></div>");
     };
-	var subNatFeatureOver = function (e, pos, latlng, data, queryForSubnational){
-		var value= data.total_amount;
-		var national_value;
-		var subNationalName = data.locationname;
-		var nationalName = data.country;
-		$.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+queryForSubnational, function(data) {
+	var subNatFeatureOver = function (e, pos, latlng, subnational_data, queryForNational){
+		var subnational_total= subnational_data.total_amount;
+		var national_total;
+		var subNationalName = subnational_data.locationname;
+		var nationalName = subnational_data.country;
+		$.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+queryForNational, function(national_data) {
 			$container.children('.info').html( 
 				"<div>"+
 					"<p><strong>" + subNationalName +"</strong></p>"+
-					"<p>$"+value.toFixed(2)+"</p>"+
+					"<p>$"+subnational_total.toFixed(2)+"</p>"+
 				"</div>"
 			);
-			var result = data.rows[0];
-			national_value = result.total_amount;
-			var percentage = (value / national_value)*100;
+			national_total = national_data.rows[0].total_amount;
+			var percentage = (subnational_total / national_total)*100;
 			$container.children('.info').append(
-				"<div><p><strong>" + nationalName + "</strong></p><p>$"+national_value.toFixed(2)+"</p></div>" + 
+				"<div><p><strong>" + nationalName + "</strong></p><p>$"+national_total.toFixed(2)+"</p></div>" + 
 				"<div><p><strong>% of national total:</strong></p><p>"+percentage.toFixed(2)+"%</p></div>" +
 				"<div class='chart'></div>"
 			);
-			createDonnutChart(value,national_value);
+			createDonnutChart(subnational_total,national_total);
 		});
 
     };
