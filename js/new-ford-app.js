@@ -141,7 +141,6 @@ function cartoMap(query, divID) {
     };
 	var subNatFeatureOver = function (e, pos, latlng, subnational_data, queryForNational){
 		var subnational_total= subnational_data.total_amount;
-		var national_total;
 		var subNationalName = subnational_data.locationname;
 		var nationalName = subnational_data.country;
 		$.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+queryForNational, function(national_data) {
@@ -151,7 +150,7 @@ function cartoMap(query, divID) {
 					"<p>$"+subnational_total.toFixed(2)+"</p>"+
 				"</div>"
 			);
-			national_total = national_data.rows[0].total_amount;
+			var national_total = national_data.rows[0].total_amount;
 			var percentage = (subnational_total / national_total)*100;
 			$container.children('.info').append(
 				"<div><p><strong>" + nationalName + "</strong></p><p>$"+national_total.toFixed(2)+"</p></div>" + 
