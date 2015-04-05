@@ -126,7 +126,7 @@ function cartoMap(query, divID) {
 			});
 
 			subnatsublayer.on('featureOver', function(e, pos, latlng, data) {
-				var queryForSubnational = "SELECT sum(g.amount) as total_amount FROM location l,  grants_locations gl,  grants g where l.locationname='"+data.country+"' and l.id=gl.locationid and gl.grantid=g.id and l.locationtype='Country' group by l.locationname";
+				var queryForSubnational = layer.layers[0].options.sql.replace(" where ", " where l.locationname='"+data.country+"' and ");
 				subNatFeatureOver(e, pos, latlng, data, queryForSubnational);
 			});
         });
