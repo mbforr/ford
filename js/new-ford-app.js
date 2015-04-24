@@ -1,7 +1,7 @@
 function cartoMap(query, divID) { 
 
 	//configurable values
-	var account_name = 'sgcm',
+	var account_name = 'fordfoundation',
 		delimiter = ' && ',
 		southWest = L.latLng(80, 120),
 		northEast = L.latLng(-30, -120);
