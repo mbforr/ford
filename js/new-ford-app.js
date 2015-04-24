@@ -104,7 +104,7 @@ function cartoMap(query, divID) {
 		// Create map
 		map.setView(InitialCenter);
 		map.fitBounds(L.latLngBounds(southWest, northEast));
-		L.tileLayer('http://a.tiles.mapbox.com/v3/fordfoundation.370e1581/{z}/{x}/{y}.png', {
+		L.tileLayer('https://a.tiles.mapbox.com/v3/fordfoundation.370e1581/{z}/{x}/{y}.png', {
 			attribution: ''
 		}).addTo(map);
 		cartodb.createLayer(map,
@@ -112,7 +112,8 @@ function cartoMap(query, divID) {
 				user_name: account_name,
 				type: 'cartodb',
 				sublayers: sublayers
-			}
+			},
+			{ https: true }
 		)
 		.addTo(map)
 		.on('done', function(layer) {
@@ -143,7 +144,7 @@ function cartoMap(query, divID) {
 		var subnational_total= subnational_data.total_amount;
 		var subNationalName = subnational_data.locationname;
 		var nationalName = subnational_data.country;
-		$.getJSON('http://'+account_name+'.cartodb.com/api/v2/sql/?q='+queryForNational, function(national_data) {
+		$.getJSON('https://'+account_name+'.cartodb.com/api/v2/sql/?q='+queryForNational, function(national_data) {
 			$container.children('.info').html( 
 				"<div>"+
 					"<p><strong>" + subNationalName +"</strong></p>"+
